@@ -31,6 +31,57 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  # check if there are any triples 
+  return_score = 0
+
+  dice_hash = {one: 0, two: 0, three: 0, four: 0, five: 0, six: 0}
+  
+  dice.each do |dice_value|
+       if dice_value == 1
+            dice_hash[:one] += 1 
+       elsif dice_value == 2
+            dice_hash[:two] += 1
+       elsif dice_value == 3  
+            dice_hash[:three] += 1
+       elsif dice_value == 4
+            dice_hash[:four] += 1
+       elsif dice_value == 5
+            dice_hash[:five] += 1 
+       elsif dice_value == 6
+            dice_hash[:six] += 1 
+       end
+  end
+
+  if dice_hash[:one] >= 3
+       return_score += 1000
+       dice_hash[:one] -= 3
+  elsif dice_hash[:two] >= 3
+       return_score += 200
+       dice_hash[:two] -= 3
+  elsif dice_hash[:three] >= 3
+       return_score += 300
+       dice_hash[:three] -= 3
+  elsif dice_hash[:four] >= 3
+       return_score += 400
+       dice_hash[:four] -= 3
+  elsif dice_hash[:five] >= 3
+       return_score += 500
+       dice_hash[:five] -= 3
+  elsif dice_hash[:six] >= 3
+       return_score += 600
+       dice_hash[:six] -= 3
+  end
+
+  if dice_hash[:one] > 0
+       return_score += 100 * dice_hash[:one]
+  end
+
+  if dice_hash[:five] > 0
+       return_score += 50 * dice_hash[:five]
+  end
+
+  return return_score
+
 end
 
 class AboutScoringProject < Neo::Koan
